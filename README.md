@@ -189,16 +189,23 @@ BENCHMARKS.md             Reproducible experiment template
 Dockerfile                Gateway image
 docker-compose.yml        Gateway deployment
 ```
+## Deployment Validation
+
+This project was validated on NVIDIA DGX Spark using a locally hosted GLM model with vLLM.
+
+The deployment workflow consisted of:
+
+* Loading and serving the GLM checkpoint through vLLM on DGX Spark
+* Exposing the inference runtime through an OpenAI-compatible endpoint
+* Routing application traffic through the FastAPI gateway
+* Validating chat-completion, health-check, logging, and metrics endpoints
+* Measuring inference latency, throughput, and concurrency behavior
+
+The repository contains the serving configuration, gateway implementation, deployment scripts, and benchmark tooling required to reproduce the setup on compatible hardware.
 
 ## Security scope
 
 This is a portfolio/reference implementation, not an internet-exposed SaaS service. It supports a gateway bearer token, but the vLLM backend should remain private (localhost/LAN/firewall) rather than being exposed directly to the public internet. Prompt bodies are not stored in SQLite by default.
-
-## Suggested resume framing after you run it
-
-> Deployed and served an open-source GLM model on NVIDIA DGX Spark using vLLM, built an OpenAI-compatible FastAPI inference gateway with health checks and runtime metrics, and benchmarked TTFT, tokens/sec, p95 latency, and concurrency; containerized and CI-tested the service with Docker and GitHub Actions.
-
-Use real benchmark values in the resume once you have measured them.
 
 ## References
 
