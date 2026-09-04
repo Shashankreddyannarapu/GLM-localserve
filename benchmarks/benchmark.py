@@ -8,9 +8,8 @@ import math
 import statistics
 import time
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-
 
 DEFAULT_PROMPTS = [
     "Explain continuous batching in LLM inference in two paragraphs.",
@@ -142,7 +141,7 @@ def summarize(results: list[Result]) -> dict[str, object]:
         if result.tokens_per_second is not None
     ]
     return {
-        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "timestamp_utc": datetime.now(UTC).isoformat(),
         "requests": len(results),
         "successful": len(successful),
         "failed": len(results) - len(successful),
