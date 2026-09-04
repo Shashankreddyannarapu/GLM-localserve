@@ -1,0 +1,15 @@
+services:
+  gateway:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      MODEL_ID: ${MODEL_ID:-zai-org/GLM-4-9B-0414}
+      UPSTREAM_BASE_URL: http://host.docker.internal:8001
+      LOCAL_API_KEY: ${LOCAL_API_KEY:-local-dev-key}
+      DATABASE_PATH: /service/data/requests.db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./data:/service/data
+    restart: unless-stopped
